@@ -1,6 +1,6 @@
 # test-angular
 
-![image](https://github.com/sentino/angular-forms/assets/17902696/d603f536-5db7-4c06-8175-161d877d2efe)
+![image](https://github.com/sentino/angular-forms/assets/17902696/42fe2ebf-d7e9-4426-bda5-f69643c008d5)
 
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.1.3.
