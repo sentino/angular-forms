@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Icpc2Service } from '../shared/services/icpc2.service';
 import { IIcpc2 } from '../shared/interfaces/icpc2.interface';
 import { Icpc2 } from '../shared/models/Icpc2';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 export const asFormControl = (ctrl: AbstractControl | null): FormControl | any => {
   if (!ctrl) {
@@ -26,6 +27,8 @@ export const asFormArray = (ctrl: AbstractControl | null): FormArray | any => {
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
+  private destroyRef = inject(DestroyRef)
+
   public readonly asFormControl = asFormControl;
   public readonly asFormArray = asFormArray;
 
@@ -43,7 +46,9 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.addIcpc2Group();
 
-    this.icpc2Service.getIcpc2().subscribe((res: IIcpc2) => {
+    this.icpc2Service.getIcpc2().pipe(
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe((res: IIcpc2) => {
       this.icpc2 = new Icpc2(res);
     })
   }
