@@ -1,5 +1,8 @@
 # test-angular
 
+![image](https://github.com/sentino/angular-forms/assets/17902696/d603f536-5db7-4c06-8175-161d877d2efe)
+
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.1.3.
 
 ## Development server
