@@ -1,0 +1,91 @@
+<div class="container">
+  <div class="row">
+    <ng-container class="col-3 flex-column">
+      <div class="d-flex mb-5 mt-5 align-items-center">
+        <h3 class="me-5 mb-0 fw-bold fs-5">Дата:</h3>
+        <mat-form-field>
+          <mat-label>__/__/____</mat-label>
+          <input
+            matInput
+            [matDatepicker]="picker"
+            [min]="minDate"
+            [formControl]="asFormControl(form.get('date'))"
+          >
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle
+            matIconSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <ng-container class="mb-5">
+        <h3 class="me-5 mb-2 fw-bold fs-5">Діагнози за ICPC-2</h3>
+        <ng-container *ngIf="asFormArray(form.get('icpc2'))?.controls?.length">
+          <div
+            class="d-flex justify-content-between"
+            *ngFor="let icpc2FormGroup of asFormArray(form.get('icpc2'))?.controls; let index = index"
+          >
+            <mat-form-field class="w-100 me-1">
+              <mat-label>Діагноз</mat-label>
+              <mat-select [formControl]="icpc2FormGroup.get('diagnosis')">
+                <mat-option *ngFor="let food of icpc2?.dictionaryForForm" [value]="food.id">
+                  {{food.name}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="icpc2FormGroup.get('diagnosis')?.hasError('required')">
+                Виберить <strong>діагноз</strong>, або видаліть группу.
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="w-100 ms-1">
+              <mat-label>Коментар</mat-label>
+              <input
+                type="text"
+                matInput
+                [formControl]="icpc2FormGroup.get('notes')"
+              >
+            </mat-form-field>
+
+            <button
+              mat-mini-fab
+              color="warn"
+              class="ms-4 mt-2"
+              (click)="deleteIcpc2Group(index)"
+            >
+              <mat-icon>clear</mat-icon>
+            </button>
+          </div>
+        </ng-container>
+      </ng-container>
+
+      <div class="d-flex flex-column">
+        <button
+          mat-button
+          color="primary"
+          class="m-1"
+          (click)="addIcpc2Group()"
+        >
+          + додати ще
+        </button>
+
+        <button
+          mat-stroked-button
+          color="primary"
+          class="json_button m-1"
+          (click)="generateJSON()"
+        >
+          Сформувати JSON
+        </button>
+      </div>
+
+      <div class="d-flex flex-column">
+        <h3 class="mt-5 mb-2 fw-bold fs-5">JSON:</h3>
+        <textarea
+          [formControl]=textareaForJson
+        ></textarea>
+      </div>
+    </ng-container>
+  </div>
+</div>

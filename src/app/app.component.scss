@@ -1,0 +1,7 @@
+:host {
+  ::ng-deep {
+    .json_button > .mat-mdc-button-persistent-ripple {
+        border-color: #3f51b5;
+    }
+  }
+}
